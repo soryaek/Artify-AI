@@ -1,11 +1,11 @@
-import React from 'react'
+import React from 'react';
 
-const Card = () => {
+const Card = ({ photo, prompt }) => {
   return (
     <div>
-      
+      <img src={photo} alt={prompt} />
     </div>
   )
 }
 
-export default Card
+export default Card;

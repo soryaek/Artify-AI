@@ -7,8 +7,9 @@ dotenv.config();
 const router = express.Router();
 
 const HUGGING_FACE_API_KEY = process.env.HUGGING_FACE_API_KEY;
+const HUGGING_FACE_API_URL = "https://api-inference.huggingface.co/models/CompVis/stable-diffusion-v1-4";
 
-router.route('/').get((req, res) => {
+router.route('/').get((_req, res) => {
     res.send('Hello from Hugging Face Stable Diffusion!');
 });
 
@@ -20,7 +21,7 @@ router.route('/').post(async (req, res) => {
             return res.status(400).json({ error: 'Prompt is required' });
         }
 
-        const response = await fetch('https://api-inference.huggingface.co/models/CompVis/stable-diffusion-v1-4', {
+        const response = await fetch(HUGGING_FACE_API_URL, {
             method: 'POST',
             headers: {
               'Authorization': `Bearer ${HUGGING_FACE_API_KEY}`,
@@ -40,6 +41,7 @@ router.route('/').post(async (req, res) => {
         const base64Image = `data:image/jpeg;base64,${buffer.toString("base64")}`;
 
         res.json({ image: base64Image });
+        
     } catch (error) {
         console.error('An error occurred:', error.message);
         res.status(500).json({ error: error.message || 'An error occurred while generating the image' });
