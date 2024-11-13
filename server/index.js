@@ -19,7 +19,7 @@ app.use('/api/v1/post', postRoutes);
 app.use('/api/v1/dalle', dalleRoutes);
 
 app.get('/', async(req, res) => {
-    res.send('Hello fromv DALL-E!');
+    res.send('Hello from Stable Diffusion AI');
 })
 
 const startServer = async () => {
