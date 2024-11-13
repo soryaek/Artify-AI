@@ -16,36 +16,106 @@ const CreatePost = () => {
   const [generatingImg, setGeneratingImg] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const generateImage = async () => {
-      if (form.prompt) {
-        try {
-          setGeneratingImg(true);
-          const response = await fetch('http://localhost:8080/api/v1/dalle', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              prompt: form.prompt,
-            })
-          })
+  // const generateImage = async () => {
+  //   console.log("form.prompt", form.prompt)
+  //     if (form.prompt) {
+  //       try {
+  //         setGeneratingImg(true);
+  //         // const response = await fetch('http://localhost:8080/api/v1/dalle', {
+  //         // // const response = await fetch('https://api-inference.huggingface.co/models/CompVis/stable-diffusion-v1-4', {
+  //         //   method: 'POST',
+  //         //   headers: {
+  //         //     'Content-Type': 'application/json',
+  //         //     // 'Authorization': `Bearer ${process.env.HUGGING_FACE_API_KEY}`,
+  //         //   },
+  //         //   body: JSON.stringify({
+  //         //     // prompt: form.prompt,
+  //         //     inputs: form.prompt,
+  //         //   })
+  //         // })
 
-          const data = await response.json();
+  //         const response = await fetch('https://api-inference.huggingface.co/models/CompVis/stable-diffusion-v1-4', {
+  //           method: 'POST',
+  //           headers: {
+  //             'Authorization': `Bearer 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`,
+  //             'Content-Type': 'application/json',
+  //           },
+  //           body: JSON.stringify({
+  //             inputs: form.prompt,
+  //           }),
+  //         });
+
+  //         const data = await response.json();
+
+  //         console.log("***data", data);
+
+  //         // newly added for hugging
+  //         const imageBase64 = data[0]?.generated_image;
+  //         if (!imageBase64) {
+  //           throw new Error("Image data not found in the response");
+  //         }
+
+  //         setForm({
+  //           ...form,
+  //           // photo: `data:image/jpeg;base64,${data.photo}`
+  //           photo: `data:image/png;base64,${imageBase64}`
+  //         })
+  //       } catch(error) {
+  //         console.log(error);
+  //         alert(error);
+  //       } finally {
+  //         setGeneratingImg(false);
+  //       }
+  //     } else {
+  //       alert('Please enter a prompt');
+  //     }
+  // }
+
+  const generateImage = async () => {
+    console.log("form.prompt", form.prompt);
+    if (form.prompt) {
+      try {
+        setGeneratingImg(true);
+  
+        const response = await fetch('https://api-inference.huggingface.co/models/CompVis/stable-diffusion-v1-4', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer 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`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            inputs: form.prompt,
+          }),
+        });
+  
+        // Check if the response is not ok and throw an error without trying to read the response body
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status} - ${response.statusText}`);
+        }
+  
+        // Convert the response Blob to base64
+        const blob = await response.blob();
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+  
+        reader.onloadend = () => {
+          const base64data = reader.result; // This will be a data URL string in the format `data:image/jpeg;base64,...`
           setForm({
             ...form,
-            photo: `data:image/jpeg;base64,${data.photo}`
-          })
-        } catch(error) {
-          console.log(error);
-          alert(error);
-        } finally {
-          setGeneratingImg(false);
-        }
-      } else {
-        alert('Please enter a prompt');
+            photo: base64data, // Set the photo as a base64 data URL
+          });
+        };
+  
+      } catch (error) {
+        console.log(error);
+        alert(error.message || "An unexpected error occurred.");
+      } finally {
+        setGeneratingImg(false);
       }
-  }
-
+    } else {
+      alert('Please enter a prompt');
+    }
+  };
   const handleSubmit = () => {
 
   }
@@ -84,7 +154,7 @@ const CreatePost = () => {
            <FormField
             labelName="Prompt"
             type="text"
-            name="Prompt"
+            name="prompt"
             placeholder="A Samurai riding a Horse on Mars, lomography"
             value={form.prompt}
             handleChange={handleChange}
