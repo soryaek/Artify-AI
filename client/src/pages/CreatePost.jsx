@@ -23,35 +23,30 @@ const CreatePost = () => {
       try {
         setGeneratingImg(true);
   
-        const response = await fetch('https://api-inference.huggingface.co/models/CompVis/stable-diffusion-v1-4', {
+        const response = await fetch('http://localhost:8080/api/v1/dalle', {
           method: 'POST',
           headers: {
-            'Authorization': `Bearer ${KEY}`,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
             inputs: form.prompt,
           }),
         });
-  
-        // Check if the response is not ok and throw an error without trying to read the response body
+
         if (!response.ok) {
           throw new Error(`Error: ${response.status} - ${response.statusText}`);
         }
 
-        // Convert the response Blob to base64
-        const blob = await response.blob();
-        const reader = new FileReader();
-        reader.readAsDataURL(blob);
-  
-        reader.onloadend = () => {
-          const base64data = reader.result; // This will be a data URL string in the format `data:image/jpeg;base64,...`
+        const data = await response.json();
+        
+        if (data.image) {
           setForm({
             ...form,
-            photo: base64data, // Set the photo as a base64 data URL
+            photo: data.image, // base64 image data URL returned from the server
           });
-        };
-  
+        } else {
+          throw new Error("Image data not found in the response");
+        }
       } catch (error) {
         console.log(error);
         alert(error.message || "An unexpected error occurred.");
@@ -62,6 +57,7 @@ const CreatePost = () => {
       alert('Please enter a prompt');
     }
   };
+
   const handleSubmit = () => {
 
   }
