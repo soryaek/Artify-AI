@@ -4,7 +4,7 @@ import cors from 'cors';
 
 import connectDB from './mongodb/connect.js';
 import postRoutes from './routes/postRoutes.js';
-import dalleRoutes from './routes/dalleRoutes.js';
+import stableDiffusionRoutes from './routes/stableDiffusionRoutes.js';
 
 dotenv.config(); // pull env variables from .env file
 
@@ -16,7 +16,7 @@ app.use(express.json({limit: '50mb'}));
 
 //api endpoints
 app.use('/api/v1/post', postRoutes);
-app.use('/api/v1/dalle', dalleRoutes);
+app.use('/api/v1/stable-diffusion', stableDiffusionRoutes);
 
 app.get('/', async(req, res) => {
     res.send('Hello from Stable Diffusion AI');
