@@ -102,17 +102,18 @@ const CreatePost = () => {
 
   return (
     <section className="max-w-7xl mx-auto">
-       <div>
-        <h1 className="font-extrabold text-[#222328] text-[32px]">Create</h1>
-        <p className="mt-2 text-[#666e75] text-[14px] max-w-[500px]">Create imaginative and visually stunning images through Stable Diffusion AI and share them with the community</p>
+       <div className="text-center">
+        <h1 className="font-extrabold text-[#222328] text-[32px]">Welcome to Artify AI</h1>
+        <p className="mt-2 text-[#666e75] text-[18px] max-w-[700px]">"From Imagination to Image - Let AI Bring Your Ideas to Life"</p>
+        {/* <p className="mt-2 text-[#666e75] text-[14px]">Create imaginative and visually stunning images through Stable Diffusion AI and share them with the community</p> */}
       </div>
       <form className="mt-16 max-w-3xl" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-5">
           <FormField
-            labelName="Your name"
+            labelName="Name"
             type="text"
             name="name"
-            placeholder="John Doe"
+            placeholder=""
             value={form.name}
             handleChange={handleChange}
           />
