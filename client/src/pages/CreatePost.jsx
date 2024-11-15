@@ -55,7 +55,7 @@ const CreatePost = () => {
         });
 
         if (!response.ok) {
-          throw new Error(`Error: ${response.status} - ${response.statusText}`);
+          throw new Error(`Error: ${response.status} - ${response.statusText}. Please try again later.`);
         }
 
         const data = await response.json();

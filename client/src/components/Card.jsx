@@ -11,7 +11,7 @@ const Card = ({_id, photo, prompt, name }) => {
         <p className="text-white text-sm overflow-y-auto prompt">{prompt}</p>
         <div className='mt-5 flex justify-between items-center gap-2'>
           <div className="flex items-center gapv-2">
-            <div className="w-7 h-7 rounded-full object-cover bg-green-700 flex justify-center items-center text-white text-xs">
+            <div className="w-7 h-7 rounded-full object-cover bg-[#6469ff] flex justify-center items-center text-white text-xs">
               {name[0].toUpperCase()}
             </div>
             <p className="text-white text-sm ml-3">{name}</p>
