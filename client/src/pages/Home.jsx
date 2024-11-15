@@ -64,7 +64,7 @@ const Home = () => {
     <section className='max-w-7xl mx-auto text-center'>
       <div>
         <h1 className="font-bold text-[#222328] text-[24px] sm:text-[32px]">Artify AI Collection</h1>
-        <p className="mt-2 text-[#666e75] text-[12px] sm:text-[14px]">Explore a gallery of creative and visually captivating images brought to life by Stable Diffusion AI</p>
+        <p className="mt-2 text-[#666e75] text-[11px] sm:text-[14px]">Explore a gallery of creative and visually captivating images brought to life by Stable Diffusion AI</p>
       </div>
 
       <div className="mt-16">
