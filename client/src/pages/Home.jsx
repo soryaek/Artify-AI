@@ -67,8 +67,7 @@ const Home = () => {
         <p className="mt-2 text-[#666e75] text-[11px] sm:text-[14px]">Explore a gallery of creative and visually captivating images brought to life by Stable Diffusion AI</p>
       </div>
 
-      <div className="mt-16">
-      {/* labelName="Search posts" */}
+      <div className="mt-8">
         <FormField type="text" name="text" placeholder="Search posts" value={searchText} handleChange={handleSearchChange}/>
       </div>
       <div className="mt-10">

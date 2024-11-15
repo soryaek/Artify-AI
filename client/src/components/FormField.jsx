@@ -4,7 +4,7 @@ const FormField = ({ labelName, type, name, placeholder, value, handleChange, is
   return (
     <div>
       <div className="flex items-center justify-between gap-2 mb-2">
-        <label htmlFor={name} className="block text-sm font-medium text-gray-900">
+        <label htmlFor={name} className="block text-sm font-medium text-[#666e75]">
           {labelName}
         </label>
         {isSurpriseMe && (
@@ -14,6 +14,7 @@ const FormField = ({ labelName, type, name, placeholder, value, handleChange, is
       </div>
       <input 
         type={type}
+        maxlength="25"
         id={name}
         name={name}
         placeholder={placeholder}
