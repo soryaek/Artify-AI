@@ -8,8 +8,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   const location = useLocation();
-  const buttonText = location.pathname === '/create-post' ? 'Collection' : 'Create';
-  const buttonRoute = location.pathname === '/create-post' ? '/' : '/create-post';
+  const buttonText = location.pathname === '/create-image' ? 'Collection' : 'Create';
+  const buttonRoute = location.pathname === '/create-image' ? '/' : '/create-image';
 
   return (
     <div className="text-3xl font-bold mx-8">
@@ -28,7 +28,7 @@ const App = () => {
         <main className="sm:p-8 px-4 py-8 w-full max-w-4xl mx-auto flex flex-col items-center">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/create-post" element={<CreatePost />} />
+            <Route path="/create-image" element={<CreatePost />} />
           </Routes>
         </main>
       {/* </BrowserRouter> */}
