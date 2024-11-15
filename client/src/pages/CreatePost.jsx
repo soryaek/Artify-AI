@@ -122,7 +122,7 @@ const CreatePost = () => {
     <section className="max-w-7xl mx-auto">
        <div className="text-center">
         <h1 className="font-extrabold text-[#222328] text-[32px]">Welcome to Artify AI</h1>
-        <p className="mt-2 text-[#666e75] text-[16px] max-w-[700px]">From Imagination to Image - Let AI Bring Your Ideas to Life</p>
+        <p className="mt-2 text-[#666e75] text-[14px] max-w-[700px]">From Imagination to Image - Let AI Bring Your Ideas to Life</p>
       </div>
       <form className="mt-16 max-w-3xl" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-5">
@@ -145,9 +145,10 @@ const CreatePost = () => {
             handleSurpriseMe={handleSurpriseMe}
           />
           <div className="relative bg-gray-50 border border-gray-300 
-          text-gray-900 text-sm rounded-lg focus:ring-blue-500 
-          focus:border-blue-500 w-64 p-3 h-64 flex justify-center 
-          items-center">
+            text-gray-900 text-sm rounded-lg focus:ring-blue-500 
+            focus:border-blue-500 w-64 p-3 h-64 flex justify-center 
+            items-center"
+          >
             {form.photo ? (
               <img src={form.photo} alt={form.prompt} className="w-full h-full object-contain"/>
             ): (
@@ -161,7 +162,7 @@ const CreatePost = () => {
             }
           </div>
         </div>
-        <div className="mt-5 flex items-center gap-5">
+        <div className="mt-5 flex flex-col sm:flex-row items-center gap-5">
           <button 
             type="button" 
             onClick={generateImage}
@@ -169,7 +170,7 @@ const CreatePost = () => {
           >
             { generatingImg ? 'Generating...' : 'Generate'}
           </button>
-          <button type="submit" className="flex items-center space-x-2 gap-2 text-white bg-[#6469ff] font-medium rounded-md text-sm w-full h-10 sm:w-auto px-5 py-2.5 text-center">
+          <button type="submit" className="text-center flex items-center justify-center space-x-2 gap-2 text-white bg-[#6469ff] font-medium rounded-md text-sm w-full h-10 sm:w-auto px-5 py-2.5">
               {loading ? (
                 'Sharing...'
               ) : (
@@ -179,18 +180,6 @@ const CreatePost = () => {
               )}
             </button>
         </div>
-        {/* <div className='mt-10'>
-            <p className="mt-2 text-[#666e75] text-[14px]">Once you have created the image you want, you can share it with others in the Artify AI Collection.</p>
-            <button type="submit" className="flex items-center space-x-2 gap-2 mt-3 text-white bg-[#6469ff] font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center">
-              {loading ? (
-                'Sharing...'
-              ) : (
-                <>
-                  Share <img className="w-4 h-4 filter invert" src={share} alt="Share icon" />
-                </>
-              )}
-            </button>
-        </div> */}
       </form>
     </section>
   )
