@@ -8,7 +8,7 @@ import { FormField, Loader } from "../components";
 import {  toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const KEY = import.meta.env.VITE_HUGGING_FACE_API_KEY;
+const isMobile = window.matchMedia("(max-width: 600px)").matches;
 
 const alertError = (errorMessage) => {
   toast.error(errorMessage, {
@@ -22,6 +22,8 @@ const alertError = (errorMessage) => {
     style: {
       fontSize:'14px',
       height: '20px',
+      width: !isMobile ? '300px' : 'calc(100% - 20px)',
+      textAlign: 'center',
     }
   });
 }
