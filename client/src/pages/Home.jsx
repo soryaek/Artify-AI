@@ -35,7 +35,7 @@ const Home = () => {
           setAllPosts(result.data.reverse()); // Show new post at the top
         }
       } catch (error) {
-        alert('error');
+        alertError('error');
       } finally {
         setLoading(false);
       }

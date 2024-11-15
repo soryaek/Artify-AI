@@ -1,11 +1,30 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { preview } from "../assets";
+import { preview, share } from "../assets";
 import { getRandomPrompt } from "../utils";
 import { FormField, Loader } from "../components";
 
+import {  toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const KEY = import.meta.env.VITE_HUGGING_FACE_API_KEY;
+
+const alertError = (errorMessage) => {
+  toast.error(errorMessage, {
+    position: "top-center",
+    autoClose: 2000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    style: {
+      fontSize:'14px',
+      height: '20px',
+    }
+  });
+}
 
 const CreatePost = () => {
   const navigate = useNavigate(); // allow us to navigate back to homepage once the post is created
@@ -48,13 +67,12 @@ const CreatePost = () => {
           throw new Error("Image data not found in the response");
         }
       } catch (error) {
-        console.log(error);
-        alert(error.message || "An unexpected error occurred.");
+        alertError(error.message || "An unexpected error occurred.");
       } finally {
         setGeneratingImg(false);
       }
     } else {
-      alert('Please enter a prompt');
+      alertError('Please enter a prompt!');
     }
   };
 
@@ -76,12 +94,12 @@ const CreatePost = () => {
         await response.json();
         navigate('/');
       } catch (error) {
-        alert(error);
+        alertError(error);
       } finally {
         setLoading(false);
       }
     } else {
-      alert('Please enter prompt!');
+      alertError('Please enter prompt!');
     }
   }
 
@@ -104,13 +122,12 @@ const CreatePost = () => {
     <section className="max-w-7xl mx-auto">
        <div className="text-center">
         <h1 className="font-extrabold text-[#222328] text-[32px]">Welcome to Artify AI</h1>
-        <p className="mt-2 text-[#666e75] text-[18px] max-w-[700px]">"From Imagination to Image - Let AI Bring Your Ideas to Life"</p>
-        {/* <p className="mt-2 text-[#666e75] text-[14px]">Create imaginative and visually stunning images through Stable Diffusion AI and share them with the community</p> */}
+        <p className="mt-2 text-[#666e75] text-[16px] max-w-[700px]">From Imagination to Image - Let AI Bring Your Ideas to Life</p>
       </div>
       <form className="mt-16 max-w-3xl" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-5">
           <FormField
-            labelName="Name"
+            labelName="Add Your Name Below:"
             type="text"
             name="name"
             placeholder=""
@@ -118,10 +135,10 @@ const CreatePost = () => {
             handleChange={handleChange}
           />
            <FormField
-            labelName="Prompt"
+            labelName="Create Your Image Below:"
             type="text"
             name="prompt"
-            placeholder="A Samurai riding a Horse on Mars, lomography"
+            placeholder="Ex: A 3D render of a rainbow colored hot air balloon flying above a reflective lake"
             value={form.prompt}
             handleChange={handleChange}
             isSurpriseMe
@@ -144,21 +161,36 @@ const CreatePost = () => {
             }
           </div>
         </div>
-        <div className="mt-5 flex gap-5">
+        <div className="mt-5 flex items-center gap-5">
           <button 
             type="button" 
             onClick={generateImage}
-            className="text-white bg-green-700 font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+            className="text-white bg-green-700 font-medium rounded-md text-sm w-full h-10 sm:w-auto px-5 py-2.5 text-center"
           >
             { generatingImg ? 'Generating...' : 'Generate'}
           </button>
-        </div>
-        <div className='mt-10'>
-            <p className="mt-2 text-[#666e75] text-[14px]">Once you have created the image you want, you can share it with others in the community</p>
-            <button type="submit" className="mt-3 text-white bg-[#6469ff] font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center">
-              {loading ? 'Sharing...' : 'Share your masterpiece in Artify Collection'}
+          <button type="submit" className="flex items-center space-x-2 gap-2 text-white bg-[#6469ff] font-medium rounded-md text-sm w-full h-10 sm:w-auto px-5 py-2.5 text-center">
+              {loading ? (
+                'Sharing...'
+              ) : (
+                <>
+                  Share with Artify AI Collection <img className="w-4 h-4 filter invert" src={share} alt="Share icon" />
+                </>
+              )}
             </button>
         </div>
+        {/* <div className='mt-10'>
+            <p className="mt-2 text-[#666e75] text-[14px]">Once you have created the image you want, you can share it with others in the Artify AI Collection.</p>
+            <button type="submit" className="flex items-center space-x-2 gap-2 mt-3 text-white bg-[#6469ff] font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center">
+              {loading ? (
+                'Sharing...'
+              ) : (
+                <>
+                  Share <img className="w-4 h-4 filter invert" src={share} alt="Share icon" />
+                </>
+              )}
+            </button>
+        </div> */}
       </form>
     </section>
   )
