@@ -18,8 +18,7 @@ cloudinary.config({
 // Get all posts
 router.route('/').get(async(req, res) => {
     try {
-        const posts = await Post.find({});
-
+        const posts = await Post.find().sort({ createdAt: -1 });
         res.status(200).json({success: true, data: posts});
     } catch (error) {
         res.status(500).json({success:false, message: error});
