@@ -1,6 +1,7 @@
 import React from 'react'
 
 const FormField = ({ labelName, type, name, placeholder, value, handleChange, isSurpriseMe, handleSurpriseMe }) => {
+  const isNameField = labelName === 'Add Your Name Here';
   return (
     <div>
       <div className="flex items-center justify-between gap-2 mb-2">
@@ -14,7 +15,7 @@ const FormField = ({ labelName, type, name, placeholder, value, handleChange, is
       </div>
       <input 
         type={type}
-        maxlength="25"
+        maxLength={isNameField ? '15' : '200'}
         id={name}
         name={name}
         placeholder={placeholder}

@@ -31,7 +31,7 @@ const Home = () => {
 
         if (response.ok) {
           const result = await response.json();
-          setAllPosts(result.data.reverse()); // Show new post at the top
+          setAllPosts(result.data); // display images in descending order from server
         }
       } catch (error) {
         alertError('error');
