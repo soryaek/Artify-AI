@@ -18,7 +18,6 @@ const Home = () => {
   const [searchResults, setSearchResults] = useState(null);
   const [searchTimeout, setSearchTimeout] = useState(null);
   
-
   useEffect(() => {
     const fetchPosts = async () => {
       setLoading(true);
