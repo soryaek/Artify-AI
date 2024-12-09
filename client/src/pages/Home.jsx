@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Loader, Card, FormField } from "../components/index.js";
+import { defaultPosts }  from "../constants/defaultPosts.js";
 
 const RenderCards = ({data, title}) => {
   if (data?.length > 0) {
@@ -73,6 +74,11 @@ const Home = () => {
         {loading ? 
           <div className="flex justify-center items-center">
             <Loader />
+            {!searchText &&
+              <div className="grid lg:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 grid-cols-1 gap-3">
+                <RenderCards data={defaultPosts} title="Default" />
+              </div>
+            }
           </div> : (
             <>
             {searchText && (
